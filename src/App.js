@@ -6,6 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import './App.css';
+import { ProvideAuth } from './auth';
 import AuthRoute from './components/AuthRoute';
 
 const LoginPage = lazy(() => import('./pages/LoginPage'));
@@ -16,20 +17,22 @@ function App() {
   return (
     <div className="App">
       <Suspense fallback={<div>Loading ...</div>}>
-        <Router>
-          <Switch>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/signup">
-              <SignupPage />
-            </Route>
-            <AuthRoute path="/board">
-              <BoardPage />
-            </AuthRoute>
-            <Redirect exact from="/" to="/board" />
-          </Switch>
-        </Router>
+        <ProvideAuth>
+          <Router>
+            <Switch>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/signup">
+                <SignupPage />
+              </Route>
+              <AuthRoute path="/board">
+                <BoardPage />
+              </AuthRoute>
+              <Redirect exact from="/" to="/board" />
+            </Switch>
+          </Router>
+        </ProvideAuth>
       </Suspense>
     </div>
   );
