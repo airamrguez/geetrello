@@ -1,0 +1,14 @@
+.BoardPage {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  header {
+    text-align: center;
+  }
+
+  >.page-content {
+    position: relative;
+    flex-grow: 1;
+  }
+}

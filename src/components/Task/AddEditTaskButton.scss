@@ -1,0 +1,42 @@
+.AddEditTaskButton {
+  border-radius: 3px;
+  color: #5e6c84;
+  flex: 1 0 auto;
+  margin: 2px 0 8px;
+  padding: 4px 8px;
+  position: relative;
+  text-decoration: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.AddEditTaskButton--form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.AddEditTaskButton--actions-container button.outline {
+  display: inline-flex;
+  font-size: 24px;
+  padding: 5px;
+}
+
+.AddEditTaskButton--add {
+  margin-top: 8px;
+  max-width: 100px;
+  max-width: fit-content;
+  margin-right: 8px;
+  padding: 10px 14px;
+  font-weight: bold;
+}
+
+.AddEditTaskButton--button.outline {
+  display: flex;
+  justify-content: space-between;
+  width: 170px;
+
+  &:hover {
+    border-radius: 3px;
+  }
+}
