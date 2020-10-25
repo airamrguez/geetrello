@@ -1,0 +1,13 @@
+.SignupPage--form-container {
+  display: flex;
+  justify-content: center;
+  height: 160px;
+}
+
+.SignupPage--form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}

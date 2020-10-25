@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import PageLayout from '../layouts/PageLayout';
+import Button from '../components/Button';
+import Input from '../components/Input';
 import { useAuth } from '../auth';
+import './LoginPage.scss';
 
 export default function LoginPage() {
   const { signin, isAuthenticated, loading, error } = useAuth();
@@ -16,25 +20,28 @@ export default function LoginPage() {
   );
 
   return (
-    <div>
-      I'm a login page I'm I authenticated? {isAuthenticated}
+    <PageLayout className="centered">
       {loading && <div>Loading ...</div>}
       {error && <div>{getLoginErrorMessage(error)}</div>}
-      <form onSubmit={onSubmit}>
-        <input
-          placeholder="Enter your username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Enter password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Sign in</button>
-      </form>
+      <div className="LoginPage--form-container">
+        <form className="LoginPage--form" onSubmit={onSubmit}>
+          <Input
+            placeholder="Enter your username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button className="success" type="submit">
+            Sign in
+          </Button>
+        </form>
+      </div>
       <Link to="/signup">Register a new account</Link>
       {isAuthenticated && <Redirect to="/board" />}
-    </div>
+    </PageLayout>
   );
 }
 

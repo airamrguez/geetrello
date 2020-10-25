@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import PageLayout from '../layouts/PageLayout';
 import { useAuth } from '../auth';
+import Button from '../components/Button';
+import Input from '../components/Input';
+import './SignupPage.scss';
 
 export default function SignupPage() {
   const { signup, success, loading, error } = useAuth();
@@ -16,24 +20,29 @@ export default function SignupPage() {
   );
 
   return (
-    <div>
-      I'm a register page
+    <PageLayout className="centered">
       {loading && <div>Loading ...</div>}
       {error && <div>{getSignupErrorMessage(error)}</div>}
-      <form onSubmit={onSubmit}>
-        <input
-          placeholder="Enter your username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Enter password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Sign in</button>
-      </form>
+      <h2>Create your account</h2>
+      <div className="SignupPage--form-container">
+        <form className="SignupPage--form" onSubmit={onSubmit}>
+          <Input
+            placeholder="Enter your username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button className="success" type="submit">
+            Sign up
+          </Button>
+        </form>
+      </div>
+      <Link to="/login">Already have an account?</Link>
       {success && <Redirect to="/login" />}
-    </div>
+    </PageLayout>
   );
 }
 

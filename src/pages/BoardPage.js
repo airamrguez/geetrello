@@ -1,15 +1,11 @@
 import React from 'react';
 import Board from '../components/Board';
-import Header from '../components/Header';
-import './BoardPage.scss';
+import PageLayout from '../layouts/PageLayout';
 
 export default function BoardPage() {
   return (
-    <div className="BoardPage">
-      <Header />
-      <div className="page-content">
-        <Board />
-      </div>
-    </div>
+    <PageLayout>
+      <Board />
+    </PageLayout>
   );
 }
