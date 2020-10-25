@@ -17,7 +17,6 @@ export default function Task(props) {
 
   return (
     <>
-      {loading && <div>Loading task ...</div>}
       <div className="Task">
         <Textarea
           value={description}
@@ -33,6 +32,7 @@ export default function Task(props) {
           </Button>
         </div>
       </div>
+      {loading && <div>Loading task ...</div>}
       {error && <div>{getTaskErrorMessage(error)}</div>}
     </>
   );

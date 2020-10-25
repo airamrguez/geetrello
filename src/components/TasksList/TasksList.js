@@ -34,8 +34,6 @@ export default function TasksList(props) {
 
   return (
     <div className="TasksListContainer">
-      {loading && <div>Loading tasks lists ...</div>}
-      {error && <div>{getTasksListErrorMessage(error)}</div>}
       <div className="TasksList">
         <div className="TasksList--header">
           <Textarea
@@ -77,6 +75,8 @@ export default function TasksList(props) {
           />
         </div>
       </div>
+      {loading && <div>Loading tasks lists ...</div>}
+      {error && <div>{getTasksListErrorMessage(error)}</div>}
     </div>
   );
 }

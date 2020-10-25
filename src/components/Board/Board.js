@@ -19,7 +19,6 @@ export default function BoardPage() {
 
   return (
     <div className="Board">
-      {loading && <div>Loading list of tasks ...</div>}
       {sortedTasksLists.map((tasksList) => (
         <TasksList
           key={`task-${tasksList.id}`}
@@ -30,6 +29,7 @@ export default function BoardPage() {
         />
       ))}
       <AddEditTasksListButton createTasksList={createTasksList} />
+      {loading && <div>Loading list of tasks ...</div>}
       {error && <div>{getTasksListErrorMessage(error)}</div>}
     </div>
   );
