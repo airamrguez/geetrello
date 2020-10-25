@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import Textarea from '../Textarea';
 import Button from '../Button';
-import AddEditTaskButton from '../Task/AddEditTaskButton';
 import Task from '../Task/Task';
 import useTasks from './useTasks';
 import './TasksList.scss';
+import AddEditButton from '../AddEditButton/AddEditButton';
 
 export default function TasksList(props) {
   const { tasksList, updateTasksList, deleteTasksList, deleteAllTasks } = props;
@@ -18,6 +18,13 @@ export default function TasksList(props) {
     loading,
     error,
   } = useTasks(tasksList.id);
+
+  const onCreateTaskClick = useCallback(
+    (description) => {
+      createTask({ task: description });
+    },
+    [createTask],
+  );
 
   const onUpdateTasksListClick = useCallback(() => {
     updateTasksList(tasksList.id, { name: tasksListName });
@@ -69,9 +76,10 @@ export default function TasksList(props) {
           ))}
         </div>
         <div className="TasksList--footer">
-          <AddEditTaskButton
-            taskListID={tasksList.id}
-            createTask={createTask}
+          <AddEditButton
+            foldedButtonText="Add another task"
+            submitButtonText="Add task"
+            onAddClick={onCreateTaskClick}
           />
         </div>
       </div>

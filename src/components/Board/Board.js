@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
-import { TasksList, AddEditTasksListButton, useTasksLists } from '../TasksList';
+import React, { useCallback, useMemo } from 'react';
+import AddEditButton from '../AddEditButton/AddEditButton';
+import { TasksList, useTasksLists } from '../TasksList';
 import './Board.scss';
 
 export default function BoardPage() {
@@ -17,21 +18,36 @@ export default function BoardPage() {
     tasksLists,
   ]);
 
+  const onAddClick = useCallback(
+    (tasksListName) => {
+      createTasksList({ name: tasksListName });
+    },
+    [createTasksList],
+  );
+
   return (
-    <div className="Board">
-      {sortedTasksLists.map((tasksList) => (
-        <TasksList
-          key={`task-${tasksList.id}`}
-          tasksList={tasksList}
-          updateTasksList={updateTasksList}
-          deleteTasksList={deleteTasksList}
-          deleteAllTasks={deleteAllTasks}
-        />
-      ))}
-      <AddEditTasksListButton createTasksList={createTasksList} />
+    <>
+      <div className="Board">
+        {sortedTasksLists.map((tasksList) => (
+          <TasksList
+            key={`task-${tasksList.id}`}
+            tasksList={tasksList}
+            updateTasksList={updateTasksList}
+            deleteTasksList={deleteTasksList}
+            deleteAllTasks={deleteAllTasks}
+          />
+        ))}
+        <div className="Board--add-edit-button">
+          <AddEditButton
+            foldedButtonText="Add another list"
+            submitButtonText="Add list"
+            onAddClick={onAddClick}
+          />
+        </div>
+      </div>
       {loading && <div>Loading list of tasks ...</div>}
       {error && <div>{getTasksListErrorMessage(error)}</div>}
-    </div>
+    </>
   );
 }
 
