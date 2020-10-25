@@ -5,10 +5,12 @@ import Task from '../Task/Task';
 import useTasks from './useTasks';
 import './TasksList.scss';
 import AddEditButton from '../AddEditButton/AddEditButton';
+import Dialog from '../Dialog/Dialog';
 
 export default function TasksList(props) {
   const { tasksList, updateTasksList, deleteTasksList, deleteAllTasks } = props;
   const [tasksListName, setTasksListName] = useState(tasksList.name);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const {
     tasks,
     refetchTasks,
@@ -34,7 +36,12 @@ export default function TasksList(props) {
     deleteTasksList(tasksList.id);
   }, [deleteTasksList, tasksList.id]);
 
-  const onDeleteAllTasksClick = useCallback(async () => {
+  const onDeleteAllTasksClick = useCallback(() => {
+    setDeleteDialogOpen(true);
+  }, []);
+
+  const onDeleteAllTaskConfirmClick = useCallback(async () => {
+    setDeleteDialogOpen(false);
     await deleteAllTasks(tasksList.id);
     await refetchTasks().promise;
   }, [deleteAllTasks, refetchTasks, tasksList.id]);
@@ -83,6 +90,13 @@ export default function TasksList(props) {
           />
         </div>
       </div>
+      <Dialog
+        isOpen={deleteDialogOpen}
+        title="Warning"
+        description="Are you sure?"
+        onCancel={() => setDeleteDialogOpen(false)}
+        onSubmit={onDeleteAllTaskConfirmClick}
+      />
       {loading && <div>Loading tasks lists ...</div>}
       {error && <div>{getTasksListErrorMessage(error)}</div>}
     </div>
