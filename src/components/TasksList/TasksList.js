@@ -30,7 +30,7 @@ export default function TasksList(props) {
     updateTasksList(tasksList.id, { name: tasksListName });
   }, [tasksList.id, tasksListName, updateTasksList]);
 
-  const onDeleteTasksListClick = useCallback(async () => {
+  const onDeleteTasksListClick = useCallback(() => {
     deleteTasksList(tasksList.id);
   }, [deleteTasksList, tasksList.id]);
 
