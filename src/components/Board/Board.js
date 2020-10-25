@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import AddEditButton from '../AddEditButton/AddEditButton';
 import { TasksList, useTasksLists } from '../TasksList';
 import './Board.scss';
@@ -13,10 +13,19 @@ export default function BoardPage() {
     deleteTasksList,
     deleteAllTasks,
   } = useTasksLists();
+  const addEditButtonRef = useRef(null);
 
   const sortedTasksLists = useMemo(() => sortTasksLists(tasksLists), [
     tasksLists,
   ]);
+
+  useEffect(() => {
+    // When everything is empty in the board then show the textarea opened
+    // instead of showing the Add button.
+    if (tasksLists?.length === 0) {
+      addEditButtonRef.current.toggleEditing(true);
+    }
+  }, [tasksLists]);
 
   const onAddClick = useCallback(
     (tasksListName) => {
@@ -39,6 +48,7 @@ export default function BoardPage() {
         ))}
         <div className="Board--add-edit-button">
           <AddEditButton
+            ref={addEditButtonRef}
             foldedButtonText="Add another list"
             submitButtonText="Add list"
             onAddClick={onAddClick}

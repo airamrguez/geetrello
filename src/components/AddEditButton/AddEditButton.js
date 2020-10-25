@@ -1,9 +1,16 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import Button from '../Button';
 import Textarea from '../Textarea';
 import './AddEditButton.scss';
 
-export default function AddEditButton(props) {
+function AddEditButton(props, ref) {
   const {
     initialDescription = '',
     foldedButtonText = 'Add item',
@@ -13,6 +20,12 @@ export default function AddEditButton(props) {
   const [description, setDescription] = useState(initialDescription);
   const [isEditing, setIsEditing] = useState(false);
   const textareaRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    toggleEditing: (nextIsEditing) => {
+      setIsEditing(nextIsEditing);
+    },
+  }));
 
   const onSubmit = useCallback(
     (e) => {
@@ -66,3 +79,5 @@ export default function AddEditButton(props) {
     </div>
   );
 }
+
+export default forwardRef(AddEditButton);
